@@ -1,9 +1,11 @@
 const TelegramBot = require('node-telegram-bot-api');
 
-const bot = new TelegramBot(process.env.API_KEY, {polling: true});
+const bot = new TelegramBot(process.env.API_KEY, {
+  polling: true
+});
 
-bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, "Hello");
+bot.onText(/(\/start|\/help)/, (msg) => {
+  bot.sendMessage(msg.chat.id, "Hello,\nthis is a bot that sends the word \"Flood\" a lot of times when you write /flood [1-5] (the number after /flood says how many messages you want to send).\nAfter using /flood you have to type /activate to use it again, but you have to wait some time before you can use it again.");
 });
 
 const aidi = [];
@@ -19,6 +21,10 @@ bot.onText(/\/flood (.+)/, (msg, number) => {
     }
     else {found = 0;}
   }
+  var floodmsg = "";
+  for (var i2 = 0; i2 < 320; i2++) {
+    floodmsg += "Flood ";
+  }
   if (found == 0) {
     const num = number[1];
     if (num < 6) {
@@ -28,7 +34,7 @@ bot.onText(/\/flood (.+)/, (msg, number) => {
       var n = d.getTime();
       taim.push(n);
       for (var i = 0; i < num; i++) {
-        bot.sendMessage(msg.chat.id, "Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood Flood");
+        bot.sendMessage(msg.chat.id, floodmsg);
       }
     }
   }
