@@ -48,7 +48,7 @@ bot.onText(/\/activate/, (msg) => {
         bot.sendMessage(msg.chat.id, "You can use /flood");
       }
       else {
-        bot.sendMessage(msg.chat.id, "You have to wait");
+        if (msg.chat.id == aidi[i]) bot.sendMessage(msg.chat.id, "You have to wait");
       }
     }
   }
