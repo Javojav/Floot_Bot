@@ -5,7 +5,7 @@ const bot = new TelegramBot(process.env.API_KEY, {
 });
 
 bot.onText(/(\/start|\/help)/, (msg) => {
-  bot.sendMessage(msg.chat.id, "Hello,\nthis is a bot that sends the word \"Flood\" a lot of times when you write /flood [1-5] (the number after /flood says how many messages you want to send).\nAfter using /flood you have to type /activate to use it again, but you have to wait some time before you can use it again.");
+  bot.sendMessage(msg.chat.id, "Hello,\nthis is a bot that sends the word \"Flood\" a lot of times when you write /flood [1-24] (the number after /flood says how many messages you want to send).\nAfter using /flood you have to type /activate to use it again, but you have to wait some time before you can use it again.");
 });
 
 const aidi = [];
@@ -22,19 +22,31 @@ bot.onText(/\/flood (.+)/, (msg, number) => {
     else {found = 0;}
   }
   var floodmsg = "";
-  for (var i2 = 0; i2 < 320; i2++) {
+  for (var i2 = 0; i2 < 666; i2++) {
     floodmsg += "Flood ";
   }
   if (found == 0) {
-    const num = number[1];
-    if (num < 6) {
+    var num = number[1];
+    if (num < 31) {
       aidi.push(msg.chat.id);
       numbah.push(num);
       var d = new Date();
       var n = d.getTime();
       taim.push(n);
-      for (var i = 0; i < num; i++) {
-        bot.sendMessage(msg.chat.id, floodmsg);
+      if (num < 16) {
+        for (var i = 0; i < num; i++) {
+          bot.sendMessage(msg.chat.id, floodmsg);
+        }
+      } else {
+        var rest = num - 15;
+        for (var i = 0; i < 15; i++) {
+          bot.sendMessage(msg.chat.id, floodmsg);
+        }
+        setTimeout(function(){
+          for (var i = 0; i < rest; i++) {
+            bot.sendMessage(msg.chat.id, floodmsg);
+          }
+        }, 300000);
       }
     }
   }
@@ -42,11 +54,10 @@ bot.onText(/\/flood (.+)/, (msg, number) => {
 
 bot.onText(/\/activate/, (msg) => {
   for (var i = 0; i < aidi.length; i++) {
+    var d = new Date();
+    var n = d.getTime();
+    var nombredevariablequenosemeocurre = taim[i] + (3600000 * numbah[i])  - n;
     if (msg.chat.id == aidi[i]) {
-      var d = new Date();
-      var n = d.getTime();
-      var nombredevariablequenosemeocurre = taim[i] + (3600000 * numbah[i])  - n;
-      //var nombredevariablequenosemeocurre = taim[i] + (1000 * numbah[i]) - n;
       if (nombredevariablequenosemeocurre < 0) {
         aidi.splice(i, 1);
         taim.splice(i,1);
@@ -54,7 +65,13 @@ bot.onText(/\/activate/, (msg) => {
         bot.sendMessage(msg.chat.id, "You can use /flood");
       }
       else {
-        if (msg.chat.id == aidi[i]) bot.sendMessage(msg.chat.id, "You have to wait");
+        if (msg.chat.id == aidi[i]) {
+          if (nombredevariablequenosemeocurre/60000 < 60) {
+            bot.sendMessage(msg.chat.id, "You have to wait " + Math.round(nombredevariablequenosemeocurre/60000) + " minutes");
+          } else {
+            bot.sendMessage(msg.chat.id, "You have to wait " + Math.round(nombredevariablequenosemeocurre/3600000) + " hours");
+          }
+        }
       }
     }
   }
