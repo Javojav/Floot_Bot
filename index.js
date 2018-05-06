@@ -21,7 +21,7 @@ bot.onText(/\/flood (.+)/, (msg, number) => {
 function sendflood(id, num, delay) {
   setTimeout(() => {
     let floodmsg = "";
-    for (let i = 0; i < 666; i++) {
+    for (let i = 0; i < 670; i++) {
       floodmsg += "Flood ";
     }
     for (let i1 = 0; i1 < num; i1++) {
